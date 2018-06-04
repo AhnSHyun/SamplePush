@@ -3,7 +3,11 @@
     package="com.example.ahn.samplepush">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.NFC" />
 
+    <uses-sdk android:minSdkVersion="16"/>
+
+    <uses-feature android:name="android.hardware.nfc" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SendActivity">
 
+        </activity>
+
+        <activity android:name=".ViewActivity">
+
+        </activity>
+
+        <activity android:name=".View2Activity">
+
+        </activity>
 
         <service
             android:name=".MyFirebaseMessagingService"
@@ -32,6 +46,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <service
             android:name=".MyFirebaseInstanceIDService"
             android:enabled="true"

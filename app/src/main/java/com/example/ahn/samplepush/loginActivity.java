@@ -62,9 +62,10 @@ public class loginActivity extends AppCompatActivity implements GoogleApiClient.
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("클릭 테스트");
-
+                Toast.makeText(loginActivity.this, "로그인시도중",Toast.LENGTH_SHORT).show();
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);
+                Toast.makeText(loginActivity.this, "로그인시도중2",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -76,12 +77,18 @@ public class loginActivity extends AppCompatActivity implements GoogleApiClient.
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+            Toast.makeText(loginActivity.this, "액티비티리절트",Toast.LENGTH_SHORT).show();
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+
             if (result.isSuccess()) {
+                Toast.makeText(loginActivity.this, "액티비티리절트2",Toast.LENGTH_SHORT).show();
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
+
                 firebaseAuthWithGoogle(account);
+                Toast.makeText(loginActivity.this, "액티비티리절트3",Toast.LENGTH_SHORT).show();
             } else {
+                Toast.makeText(loginActivity.this, "안됨",Toast.LENGTH_SHORT).show();
                 // Google Sign In failed, update UI appropriately
                 // ...
             }
@@ -97,7 +104,7 @@ public class loginActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-
+                            Toast.makeText(loginActivity.this, "안됨",Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(loginActivity.this, "firebase 아이디 생성 완료",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

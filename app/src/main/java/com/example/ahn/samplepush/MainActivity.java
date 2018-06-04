@@ -26,6 +26,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MyIID";
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -46,20 +50,48 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+        FirebaseInstanceId.getInstance().getToken();
+
         Intent idintent = getIntent();
         String data = idintent.getStringExtra("value");
         googleId = data;
         messageInput = (EditText) findViewById(R.id.messageInput);
         messageOutput = (TextView) findViewById(R.id.messageOutput);
         log = (TextView) findViewById(R.id.log);
-
         Button sendButton = (Button) findViewById(R.id.sendButton);             //3. 전송 버튼을 눌렀을 때 메시지 전송을 위해 만든 메소드 호출
+        Button nfcSend = (Button) findViewById(R.id.nfcSend);
+        Button viewButton = (Button) findViewById(R.id.viewButton);
+        Button view2Button = (Button) findViewById(R.id.view2Button);
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String input = messageInput.getText().toString();
                 send(input);
                 waitNum += 1;
+            }
+        });
+
+        nfcSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SendActivity.class);
+                startActivity(intent);
+            }
+        });
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ViewActivity.class);
+                startActivity(intent);
+            }
+        });
+        view2Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), View2Activity.class);
+                startActivity(intent);
             }
         });
 
